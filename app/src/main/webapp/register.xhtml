@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+    <title>Registration</title>
+    <h:outputStylesheet name="main.css" library="css"/>
+</h:head>
+
+<h:body>
+
+
+    <h:form>
+        <h:inputText id="username" a:placeholder="username" value="#{registrationRequest.username}">
+            <f:validateRequired/>
+            <f:validateRegex pattern="[a-z A-Z 0-9]*"/>
+        </h:inputText>
+        <h:outputText value="Letters or numbers"/>
+        <c:if test="#{flash.containsKey('already-exist')}">
+            <small class="form-text text-danger"><h:outputText value="flash['already-exist']}"/></small>
+        </c:if>
+
+        <br/>
+
+        <h:inputText id="firstname" a:placeholder="firstname" value="#{registrationRequest.firstname}">
+            <f:validateRequired/>
+            <f:validateRegex pattern="[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*"/>
+        </h:inputText>
+        <h:outputText value="Any letters"/>
+
+        <br/>
+
+        <h:inputText id="lastname" a:placeholder="lastname" value="#{registrationRequest.lastname}">
+            <f:validateRequired/>
+            <f:validateRegex pattern="[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*"/>
+        </h:inputText>
+        <h:outputText value="Any letters"/>
+
+        <br/>
+
+        <h:inputText id="dateOfBirth" a:placeholder="dateOfBirth" value="#{registrationRequest.dateOfBirth}">
+            <f:validateRequired/>
+            <f:validateRegex pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$"/>
+        </h:inputText>
+        <h:outputText value="day/month/year"/>
+
+        <br/>
+
+        <h:inputSecret id="password" a:placeholder="password" value="#{registrationRequest.password}">
+            <f:validateRequired/>
+        </h:inputSecret>
+        <h:outputText value="Any characters or numbers"/>
+
+        <br/>
+
+        <h:inputSecret id="repeatedPassword" a:placeholder="repeat password" >
+            <f:validateRequired/>
+        </h:inputSecret>
+
+        <o:validateEqual components="password repeatedPassword" message="Passwords don't match" showMessageFor="repeatedPassword"/>
+
+        <br/>
+
+        <h:commandButton value="Register" action="#{registrationController.register}"/>
+
+    </h:form>
+
+</h:body>
+
+</html>
