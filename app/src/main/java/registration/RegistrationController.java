@@ -47,7 +47,7 @@ public class RegistrationController {
             em.persist(user);
         }
 
-        return "index.xhtml?faces-redirect=true";
+        return "login.xhtml?faces-redirect=true";
     }
 
 
