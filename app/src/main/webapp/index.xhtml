@@ -8,48 +8,53 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>Main webpage</title>
-    <h:outputStylesheet name="main.css" library="css"/>
-</h:head>
+<f:view>
+    <h:head>
+        <title>Main webpage</title>
+        <h:outputStylesheet name="main.css" library="css"/>
+    </h:head>
 
-<h:body>
+    <h:body>
 
-    <h:button outcome="addArticle" value="Add new article"/><br/>
-
-    <h:button outcome="editArticle" value="Edit existing one"/><br/>
-
+        <h:button outcome="addArticle" value="Add new article"/><br/>
 
 
-    <h:dataTable value="#{articleRepository.articles}" var="article"
-                 styleClass="order-table"
-                 headerClass="order-table-header"
-                 rowClasses="order-table-odd-row,order-table-even-row"
-    >
+        <h:dataTable value="#{articleRepository.articles}" var="article"
+                     styleClass="order-table"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row"
+        >
+    
+            <h:column>
+                <f:facet name="header">Title</f:facet>
+                <h:outputText value="#{article.title}"/>
+            </h:column>
 
-        <h:column>
-            <f:facet name="title">Title</f:facet>
-            <h:outputText value="#{article.title}"/>
-        </h:column>
+            <h:column>
+                <f:facet name="header">Content</f:facet>
+                <h:outputText value="#{article.content}"/>
+            </h:column>
 
-        <h:column>
-            <f:facet name="content">Content</f:facet>
-            <h:outputText value="#{article.content}"/>
-        </h:column>
+            <h:column>
+                <f:facet name="header">Author</f:facet>
+                <h:outputText value="#{article.author.username}"/>
+            </h:column>
 
-        <h:column>
-            <f:facet name="author">Author</f:facet>
-            <h:outputText value="#{article.author.username}"/>
-        </h:column>
+            <h:column>
+                <f:facet name="header">Date</f:facet>
+                <h:outputText value="#{article.date}"/><br/>
+            </h:column>
 
-        <h:column>
-            <f:facet name="date">Price</f:facet>
-            <h:outputText value="#{article.date}"/><br/>
-        </h:column>
+            <h:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <h:button value="Edit article" outcome="editArticle.xhtml">
+                        <f:param name="articleId" value="#{article.id}"/>
+                    </h:button>
+            </h:column>
 
-        <br/>
-    </h:dataTable>
+            <br/>
+        </h:dataTable>
 
-</h:body>
-
+    </h:body>
+</f:view>
 </html>

@@ -10,18 +10,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+<f:view>
+    <f:metadata>
+        <f:viewParam name="articleId" value="#{articleRequest.articleId}"/>
+    </f:metadata>
+</f:view>
+
 <h:head>
-    <title>LoginPage</title>
+    <title>EditArticle</title>
     <h:outputStylesheet name="main.css" library="css"/>
 </h:head>
 
 <h:body>
 
     <h:form>
-        <h:inputText id="oldTitle" a:placeholder="oldTitle" value="#{articleRequest.oldTitle}">
-            <f:validateRequired/>
-        </h:inputText><br/>
-
         <h:inputText id="title" a:placeholder="title" value="#{articleRequest.title}">
             <f:validateRequired/>
         </h:inputText><br/>
@@ -30,11 +32,9 @@
             <f:validateRequired/>
         </h:inputTextarea><br/>
 
-        <h:inputText id="date" a:placeholder="date" value="#{articleRequest.date}">
-            <f:validateRequired/>
-        </h:inputText><br/>
-
-        <p:commandButton action="#{articleRepository.editArticle}" value="Edit article"/><br/>
+        <p:commandButton action="#{articleRepository.editArticle}" value="Edit article"><br/>
+            <f:param name="articleId" value="#{articleRequest.articleId}"/>
+        </p:commandButton>
     </h:form>
 
 </h:body>

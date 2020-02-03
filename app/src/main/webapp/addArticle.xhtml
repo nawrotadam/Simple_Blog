@@ -26,10 +26,6 @@
             <f:validateRequired/>
         </h:inputTextarea><br/>
 
-        <h:inputText id="date" a:placeholder="date" value="#{articleRequest.date}">
-            <f:validateRequired/>
-        </h:inputText><br/>
-
         <p:commandButton action="#{articleRepository.addArticle}" value="Add article"/><br/>
     </h:form>
 

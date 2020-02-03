@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -34,29 +36,36 @@ public class ArticleRepository {
                 createQuery("Select u from ProfileEntity u where u.username = :sessionUsername", ProfileEntity.class).
                 setParameter("sessionUsername", sessionUsername).getSingleResult();
 
-        ArticleEntity article = new ArticleEntity(articleRequest.getTitle(), articleRequest.getContent(),
-                articleRequest.getDate());
+        Date localDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+        String date = dateFormat.format(localDate);
+
+        ArticleEntity article = new ArticleEntity(articleRequest.getTitle(), articleRequest.getContent(), date);
         article.setAuthor(author);
 
         em.persist(article);
-        return "index";
+        return "index.xhtml?faces-redirect=true";
     }
 
     @Transactional
     public String editArticle()
     {
-        String oldTitle = articleRequest.getOldTitle();
+        Long articleId = articleRequest.getArticleId();
 
         ArticleEntity article = em.
-                createQuery("Select a from ArticleEntity a where a.title = :oldTitle", ArticleEntity.class).
-                setParameter("oldTitle", oldTitle).getSingleResult();
+                createQuery("Select a from ArticleEntity a where a.id = :articleId", ArticleEntity.class).
+                setParameter("articleId", articleId).getSingleResult();
+
+        Date localDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+        String newDate = dateFormat.format(localDate);
 
         article.setTitle(articleRequest.getTitle());
         article.setContent(articleRequest.getContent());
-        article.setDate(articleRequest.getDate());
+        article.setDate(newDate);
 
         em.merge(article);
-        return "index";
+        return "index.xhtml?faces-redirect=true";
     }
 
     @Transactional

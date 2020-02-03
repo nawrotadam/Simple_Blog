@@ -5,17 +5,12 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class ArticleRequest {
-    private String oldTitle;
+    private Long articleId;
     private String title;
     private String content;
-    private String date;
 
-    public String getOldTitle(){
-        return oldTitle;
-    }
-    public void setOldTitle(String oldTitle){
-        this.oldTitle = oldTitle;
-    }
+    public Long getArticleId() { return articleId; }
+    public void setArticleId(Long articleId) { this.articleId = articleId; }
 
     public String getTitle(){
         return title;
@@ -30,13 +25,5 @@ public class ArticleRequest {
     public void setContent(String content){
         this.content = content;
     }
-
-    public String getDate(){
-        return date;
-    }
-    public void setDate(String date){
-        this.date = date;
-    }
-
 
 }
