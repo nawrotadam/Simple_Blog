@@ -6,7 +6,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <f:view>
     <h:head>
@@ -24,7 +25,7 @@
                      headerClass="order-table-header"
                      rowClasses="order-table-odd-row,order-table-even-row"
         >
-    
+
             <h:column>
                 <f:facet name="header">Title</f:facet>
                 <h:outputText value="#{article.title}"/>
@@ -46,10 +47,14 @@
             </h:column>
 
             <h:column>
-                    <f:facet name="header">Edit</f:facet>
-                    <h:button value="Edit article" outcome="editArticle.xhtml">
-                        <f:param name="articleId" value="#{article.id}"/>
-                    </h:button>
+                <h:outputText value="#{article.id}"/><br/>
+            </h:column>
+
+            <h:column rendered="#{articleRepository.isItYourArticle(article.id)}">
+                <f:facet name="header">Edit</f:facet>
+                <h:button value="Edit article" outcome="editArticle.xhtml">
+                    <f:param name="articleId" value="#{article.id}"/>
+                </h:button>
             </h:column>
 
             <br/>
