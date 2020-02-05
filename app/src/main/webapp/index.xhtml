@@ -47,12 +47,8 @@
             </h:column>
 
             <h:column>
-                <h:outputText value="#{article.id}"/><br/>
-            </h:column>
-
-            <h:column rendered="#{articleRepository.isItYourArticle(article.id)}">
-                <f:facet name="header">Edit</f:facet>
-                <h:button value="Edit article" outcome="editArticle.xhtml">
+                <f:facet name="header" rendered="#{article.author.username == articleRepository.sessionUsername}">Edit</f:facet>
+                <h:button value="Edit article" outcome="editArticle.xhtml" rendered="#{article.author.username == articleRepository.sessionUsername}">
                     <f:param name="articleId" value="#{article.id}"/>
                 </h:button>
             </h:column>

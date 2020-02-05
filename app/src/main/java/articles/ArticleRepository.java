@@ -68,28 +68,35 @@ public class ArticleRepository {
         return "index.xhtml?faces-redirect=true";
     }
 
-    @Transactional
-    public boolean isItYourArticle(Long requestedId)
+    public String getSessionUsername()
     {
-        if(requestedId == null) {return false;}
-
         var session = request.getSession(false);
-        String sessionUsername = String.valueOf(session.getAttribute("username"));
-
-        ProfileEntity articleAuthor = em.
-                createQuery("Select u from ProfileEntity u where u.username = :sessionUsername", ProfileEntity.class).
-                setParameter("sessionUsername", sessionUsername).getSingleResult();
-
-        List<ArticleEntity> article = em.
-                createQuery("Select a from ArticleEntity a where a.id = :requestedId and a.author = :articleAuthor", ArticleEntity.class).
-                setParameter("requestedId", requestedId).setParameter("articleAuthor",articleAuthor).getResultList();
-
-        return !article.isEmpty();
+        return String.valueOf(session.getAttribute("username"));
     }
+
+//    @Transactional
+//    public Boolean isArticleEditable(Long requestedId)
+//    {
+//        if(requestedId == null) {return false;}
+//
+//        var session = request.getSession(false);
+//        String sessionUsername = String.valueOf(session.getAttribute("username"));
+//
+//        ProfileEntity articleAuthor = em.
+//                createQuery("Select u from ProfileEntity u where u.username = :sessionUsername", ProfileEntity.class).
+//                setParameter("sessionUsername", sessionUsername).getSingleResult();
+//
+//        List<ArticleEntity> article = em.
+//                createQuery("Select a from ArticleEntity a where a.id = :requestedId and a.author = :articleAuthor", ArticleEntity.class).
+//                setParameter("requestedId", requestedId).setParameter("articleAuthor",articleAuthor).getResultList();
+//
+//        return !article.isEmpty();
+//    }
 
     @Transactional
     public List<ArticleEntity> getArticles()
     {
         return em.createQuery("Select a from ArticleEntity a order by date desc", ArticleEntity.class).getResultList();
     }
+
 }
