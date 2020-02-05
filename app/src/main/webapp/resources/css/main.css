@@ -1,5 +1,5 @@
 body{
-    background-image: url("#{resource['images/backgroundPattern.png']}");
+    background-image: url("#{resource['images/bright_squares.png']}");
 
 
 }
