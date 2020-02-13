@@ -13,6 +13,8 @@
 <f:view>
     <f:metadata>
         <f:viewParam name="articleId" value="#{articleRequest.articleId}"/>
+        <f:viewParam name="articleTitle" value="#{articleRequest.title}"/>
+        <f:viewParam name="articleContent" value="#{articleRequest.content}"/>
     </f:metadata>
 </f:view>
 
@@ -24,11 +26,16 @@
 <h:body>
 
     <h:form>
-        <h:inputText id="title" a:placeholder="title" value="#{articleRequest.title}">
+        <h:outputText value="Title"/><br/>
+
+        <h:inputText id="title" value="#{articleRequest.title}">
+            <f:param name="articleId" value="#{articleRequest.articleId}"/>
             <f:validateRequired/>
         </h:inputText><br/>
 
-        <h:inputTextarea id="content" cols="30" rows="10" a:placeholder="content" value="#{articleRequest.content}">
+        <h:outputText value="Content"/><br/>
+        <h:inputTextarea id="content" cols="30" rows="10" value="#{articleRequest.content}">
+            <f:param name="articleId" value="#{articleRequest.articleId}"/>
             <f:validateRequired/>
         </h:inputTextarea><br/>
 

@@ -99,4 +99,5 @@ public class ArticleRepository {
         return em.createQuery("Select a from ArticleEntity a order by date desc", ArticleEntity.class).getResultList();
     }
 
+
 }
